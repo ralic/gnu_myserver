@@ -19,7 +19,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_INIT([GNU MyServer],
-m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+m4_esyscmd([build-aux/git-version-gen .version]),
 [bug-myserver@gnu.org])
 AC_PREREQ(2.65)
 AC_CONFIG_AUX_DIR([build-aux])
@@ -63,7 +63,6 @@ AC_DEFINE([GNULIB_NAMESPACE], [gnulib], [GNULIB_NAMESPACE])
 
 AC_CANONICAL_HOST
 
-PACKAGE_STRING="m4_esyscmd([cat version])"
 MYSERVER_VERSION="${PACKAGE_STRING}"
 
 AC_SUBST(MYSERVER_VERSION)

@@ -563,8 +563,7 @@ void Server::displayBoot ()
     {
       try
         {
-          string softwareSignature = "************ GNU MyServer "
-            MYSERVER_VERSION " ************";
+          string softwareSignature = "************ " MYSERVER_VERSION " ************";
 
           string tmp (softwareSignature.length (), '*');
 

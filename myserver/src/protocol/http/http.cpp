@@ -121,7 +121,7 @@ int Http::optionsHTTPRESOURCE (string& filename, bool mapped)
       td->auxiliaryBuffer->setLength (0);
       *td->auxiliaryBuffer << "HTTP/1.1 200 OK\r\n";
       *td->auxiliaryBuffer << "Date: " << time;
-      *td->auxiliaryBuffer << "\r\nServer: GNU MyServer " << MYSERVER_VERSION;
+      *td->auxiliaryBuffer << "\r\nServer: " << MYSERVER_VERSION;
       if (connection && connection->value.length ())
         *td->auxiliaryBuffer << "\r\nConnection:" << connection->value.c_str () << "\r\n";
       *td->auxiliaryBuffer << "Content-length: 0\r\nAccept-Ranges: bytes\r\n";
@@ -162,7 +162,7 @@ int Http::traceHTTPRESOURCE (string& filename, bool mapped)
       td->auxiliaryBuffer->setLength (0);
       *td->auxiliaryBuffer << "HTTP/1.1 200 OK\r\n";
       *td->auxiliaryBuffer << "Date: " << time << "\r\n";
-      *td->auxiliaryBuffer << "Server: GNU MyServer " << MYSERVER_VERSION << "\r\n";
+      *td->auxiliaryBuffer << "Server: " << MYSERVER_VERSION << "\r\n";
       connection = td->request.other.get ("connection");
       if (connection && connection->value.length ())
         *td->auxiliaryBuffer << "Connection:" << connection->value.c_str () << "\r\n";
@@ -1216,7 +1216,7 @@ int Http::requestAuthorization ()
   td->auxiliaryBuffer->setLength (0);
   *td->auxiliaryBuffer << "HTTP/1.1 401 Unauthorized\r\n"
           << "Accept-Ranges: bytes\r\n";
-  *td->auxiliaryBuffer << "Server: GNU MyServer " << MYSERVER_VERSION << "\r\n";
+  *td->auxiliaryBuffer << "Server: " << MYSERVER_VERSION << "\r\n";
   *td->auxiliaryBuffer << "Content-type: text/html\r\n"
           << "Connection: ";
   *td->auxiliaryBuffer << (connection ? connection->value.c_str () : "");
@@ -1459,7 +1459,7 @@ Internal Server Error\n\
   *td->buffer << "\r\n";
   td->auxiliaryBuffer->setLength (0);
   *td->auxiliaryBuffer << "HTTP/1.1 500 System Error\r\n";
-  *td->auxiliaryBuffer << "Server: GNU MyServer " << MYSERVER_VERSION << "\r\n";
+  *td->auxiliaryBuffer << "Server: " << MYSERVER_VERSION << "\r\n";
   *td->auxiliaryBuffer << " Content-type: text/html\r\nContent-length: ";
   tmp.intToStr ((int) strlen (hardHTML), tmpStr, 12);
   *td->auxiliaryBuffer << tmp;
@@ -1635,7 +1635,7 @@ int Http::sendHTTPRedirect (const char *newURL)
   td->auxiliaryBuffer->setLength (0);
   *td->auxiliaryBuffer << "HTTP/1.1 302 Moved\r\n"
                        << "Accept-Ranges: bytes\r\n"
-                       << "Server: GNU MyServer " << MYSERVER_VERSION << "\r\n"
+                       << "Server: " << MYSERVER_VERSION << "\r\n"
                        << "Location: " << newURL << "\r\n"
                        << "Content-length: 0\r\n";
 
@@ -1664,7 +1664,7 @@ int Http::sendHTTPNonModified ()
   td->response.httpStatus = 304;
   td->auxiliaryBuffer->setLength (0);
   *td->auxiliaryBuffer << "HTTP/1.1 304 Not Modified\r\nAccept-Ranges: bytes\r\n"
-          << "Server: GNU MyServer " << MYSERVER_VERSION << "\r\n";
+          << "Server: " << MYSERVER_VERSION << "\r\n";
 
   if (connection && !strcasecmp (connection->value.c_str (), "keep-alive"))
     *td->auxiliaryBuffer << "Connection: keep-alive\r\n";

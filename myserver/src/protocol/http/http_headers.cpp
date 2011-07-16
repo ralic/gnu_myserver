@@ -214,7 +214,7 @@ void HttpHeaders::buildDefaultHTTPResponseHeader (HttpResponseHeader* response)
 
   response->setValue ("content-type", "text/html");
   response->ver.assign ("HTTP/1.1");
-  response->setValue ("Server", "GNU MyServer " MYSERVER_VERSION);
+  response->setValue ("Server", MYSERVER_VERSION);
 }
 
 /*!
