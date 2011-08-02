@@ -21,10 +21,6 @@
 #ifndef MEMBUF_H
 # define MEMBUF_H
 
-# ifndef NULL
-#  define NULL 0
-# endif
-
 # include "myserver.h"
 # include <iostream>
 # include <string>
