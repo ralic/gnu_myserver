@@ -58,7 +58,6 @@ ClientsThread::ClientsThread (Server* server)
   initialized = false;
   toDestroy = false;
   staticThread = 0;
-  nBytesToRead = 0;
 }
 
 /*!
@@ -248,6 +247,7 @@ int ClientsThread::controlConnections ()
   ConnectionPtr c;
   Protocol* protocol = 0;
   u_long dataRead = 0;
+  u_long nBytesToRead;
 
   c = server->getConnection (this->id);
 
@@ -275,7 +275,6 @@ int ClientsThread::controlConnections ()
   buffer.setLength (dataRead + err);
   c->setForceControl (0);
 
-  /* Refresh with the right value.  */
   nBytesToRead = dataRead + err;
 
   if ((dataRead + err) < MYSERVER_KB (8))

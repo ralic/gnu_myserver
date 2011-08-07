@@ -90,7 +90,6 @@ private:
   MemBuf buffer;
   MemBuf auxiliaryBuffer;
   int controlConnections ();
-  u_long nBytesToRead;
 };
 
 DEFINE_THREAD (clients_thread, pParam);
