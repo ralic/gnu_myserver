@@ -51,6 +51,8 @@
 #include <ostream>
 #include <errno.h>
 
+#include <netinet/tcp.h>
+
 using namespace std;
 
 int HttpProtocol::loadProtocol ()
@@ -1004,6 +1006,16 @@ int Http::controlConnection (ConnectionPtr a, char*, char*, u_long, u_long,
                                            a->getLocalPort ());
 
               return ClientsThread::DELETE_CONNECTION;
+            }
+
+          if (! strcmp (td->securityToken.getData ("connection.tcp_nodelay",
+                                                   MYSERVER_VHOST_CONF |
+                                                   MYSERVER_SERVER_CONF, "NO"),
+                        "YES"))
+            {
+              int flag = 1;
+              td->connection->socket->setsockopt (IPPROTO_TCP, TCP_NODELAY,
+                                                  (char *) &flag, sizeof(int));
             }
 
           if (td->request.uri.length () > 2 && td->request.uri[1] == '~')

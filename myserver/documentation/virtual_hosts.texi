@@ -163,3 +163,15 @@ For example, the HTTP TRACE command can be disabled using:
 @example
 <DEFINE name="http.trace.allow" value="NO" />
 @end example
+
+@subsubsection Disable TCP Nagle
+It is possible to disable the TCP Nagle algorithm by specifying this
+value in the virtual host configuration file (or globally):
+
+@example
+<DEFINE name="connection.tcp_nodelay" value="YES" />
+@end example
+
+It might be a good performance enhancement to disable this algorithm on
+very fast networks, more TCP packets may be sent with the advantage of
+a better latency.
