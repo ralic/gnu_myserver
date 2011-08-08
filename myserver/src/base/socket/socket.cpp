@@ -275,16 +275,16 @@ void Socket::getLocalIPsList (string &out)
           if ( pCurrentSockAddr == NULL )
             continue;
 
-          checked::checkError (getnameinfo (pCrtHostInfo->ai_addr,
-                                            sizeof (sockaddr_storage), straddr,
-                                            NI_MAXHOST, NULL, 0,
-                                            NI_NUMERICHOST));
+          checked::checkError (gnulib::getnameinfo (pCrtHostInfo->ai_addr,
+                                                    sizeof (sockaddr_storage),
+                                                    straddr, NI_MAXHOST, NULL,
+                                                    0, NI_NUMERICHOST));
 
           stream << ( !stream.str ().empty () ? ", " : "" ) << straddr;
         }
 
       out.assign (stream.str ());
-      freeaddrinfo (pHostInfo);
+      gnulib::freeaddrinfo (pHostInfo);
     }
 #else
   MYSERVER_HOSTENT *localhe;
@@ -478,8 +478,8 @@ int Socket::connect (const char* host, u_short port)
           break;
         }
     }
-  freeaddrinfo (pHostInfo);
-  if ( !bSocketConnected )
+  gnulib::freeaddrinfo (pHostInfo);
+  if (! bSocketConnected)
     return -1;
 #else
   MYSERVER_HOSTENT *hp = Socket::gethostbyname (host);
