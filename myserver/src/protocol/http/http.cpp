@@ -1008,6 +1008,8 @@ int Http::controlConnection (ConnectionPtr a, char*, char*, u_long, u_long,
               return ClientsThread::DELETE_CONNECTION;
             }
 
+          td->securityToken.setVhost (td->connection->host);
+
           if (! strcmp (td->securityToken.getData ("connection.tcp_nodelay",
                                                    MYSERVER_VHOST_CONF |
                                                    MYSERVER_SERVER_CONF, "NO"),
