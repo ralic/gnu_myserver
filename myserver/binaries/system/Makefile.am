@@ -16,7 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 SUBDIRS = errors icons css
-myserverdatadir = $(datadir)/myserver/system
+myserverdatadir = $(docdir)/examples
 
 dist_myserverdata_DATA = .security.xml
 
+install-data-hook:
+	mv $(DESTDIR)$(docdir)/examples/.security.xml $(DESTDIR)$(docdir)/examples/security.default.xml

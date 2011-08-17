@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 SUBDIRS = logs system web certificates plugins
 
-EXTRA_DIST = myserver-daemon MIMEtypes.default.xml myserver.default.xml \
-						 virtualhosts.default.xml
+examplesdir = $(docdir)/examples
 
-configdir = $(DESTDIR)$(prefix)/etc/myserver
+dist_examples_DATA = myserver-daemon MIMEtypes.default.xml myserver.default.xml \
+			virtualhosts.default.xml

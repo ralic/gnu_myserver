@@ -15,6 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-myserverdatadir = $(prefix)/var/web/cgi-bin
+defaultsitecgidir = $(pkgdatadir)/web/cgi-bin
 
-dist_myserverdata_DATA = default.html
+dist_defaultsitecgi_DATA = default.html

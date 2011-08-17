@@ -34,3 +34,7 @@ clean-generic:
 	rm -f  ../../cgi-bin/post.mscgi
 
 .phony : post.mscgi
+
+install-exec-hook:
+	rm -f $(DESTDIR)$(libdir)/libpost.la
+	mv $(DESTDIR)$(libdir)/libpost.mscgi $(DESTDIR)$(pkgdatadir)/web/cgi-bin

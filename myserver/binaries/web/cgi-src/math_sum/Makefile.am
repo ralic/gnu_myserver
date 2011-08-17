@@ -34,3 +34,7 @@ clean-generic:
 	rm -f  ../../cgi-bin/math_sum.mscgi
 
 .phony : math_sum.mscgi
+
+install-exec-hook:
+	rm -f $(DESTDIR)$(libdir)/libmath_sum.la
+	mv $(DESTDIR)$(libdir)/libmath_sum.mscgi $(DESTDIR)$(pkgdatadir)/web/cgi-bin

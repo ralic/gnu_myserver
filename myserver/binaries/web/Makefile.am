@@ -21,6 +21,6 @@ endif
 
 SUBDIRS = cgi-bin $(CGI_SRC)
 
-myserverdatadir = $(prefix)/var/web
+defaultsitedir = $(pkgdatadir)/web
 
-dist_myserverdata_DATA = logo.png goto.png default.html link.html
+dist_defaultsite_DATA = logo.png goto.png default.html link.html

@@ -15,7 +15,4 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-EXTRA_DIST = how_create_certificates.txt
-install :
-	$(INSTALL) -d '$(DESTDIR)$(prefix)/etc/myserver/certificates'
-
+dist_doc_DATA = how_create_certificates.txt

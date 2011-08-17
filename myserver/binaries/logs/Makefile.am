@@ -16,4 +16,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 install :
-	$(INSTALL) -d $(DESTDIR)$(prefix)/var/log/myserver
+	$(INSTALL) -d $(DESTDIR)$(localstatedir)/log/myserver
