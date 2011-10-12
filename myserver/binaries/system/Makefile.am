@@ -21,4 +21,5 @@ myserverdatadir = $(docdir)/examples
 dist_myserverdata_DATA = .security.xml
 
 install-data-hook:
+	cp $(DESTDIR)$(docdir)/examples/.security.xml $(DESTDIR)$(datadir)/myserver/system/.security.xml
 	mv $(DESTDIR)$(docdir)/examples/.security.xml $(DESTDIR)$(docdir)/examples/security.default.xml

@@ -21,3 +21,13 @@ examplesdir = $(docdir)/examples
 
 dist_examples_DATA = myserver-daemon MIMEtypes.default.xml myserver.default.xml \
 			virtualhosts.default.xml
+
+confdir = $(sysconfdir)/myserver
+
+conf_DATA = MIMEtypes.default.xml myserver.default.xml \
+			virtualhosts.default.xml
+
+install-data-hook:
+	mv $(DESTDIR)$(sysconfdir)/myserver/MIMEtypes.default.xml $(DESTDIR)$(sysconfdir)/myserver/MIMEtypes.xml
+	mv $(DESTDIR)$(sysconfdir)/myserver/myserver.default.xml $(DESTDIR)$(sysconfdir)/myserver/myserver.xml
+	mv $(DESTDIR)$(sysconfdir)/myserver/virtualhosts.default.xml $(DESTDIR)$(sysconfdir)/myserver/virtualhosts.xml

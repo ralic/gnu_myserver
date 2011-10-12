@@ -800,7 +800,7 @@ int Http::logHTTPaccess ()
           HttpRequestHeader::Entry *userAgent = td->request.other.get ("user-agent");
           HttpRequestHeader::Entry *referer = td->request.other.get ("refer");
 
-          if (strstr ((td->connection->host)->getAccessLogOpt (), "type=combined"))
+          if (strstr (td->connection->host->getAccessLogOpt (), "type=combined"))
             *td->auxiliaryBuffer << " " << (referer ? referer->value.c_str () : "")
             << " " << (userAgent ? userAgent->value.c_str () : "");
         }

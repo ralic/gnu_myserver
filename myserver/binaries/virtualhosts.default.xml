@@ -8,15 +8,15 @@
     <PORT>80</PORT>
     <PROTOCOL>HTTP</PROTOCOL>
 
-    <DOCROOT>web</DOCROOT>
-    <SYSROOT>system</SYSROOT>
+    <DOCROOT>/var/www</DOCROOT>
+    <SYSROOT>/usr/share/myserver/system</SYSROOT>
 
     <ACCESSLOG>
-      <STREAM location="file://logs/MyServerHTTP.log" cycle="1048576"/>
+      <STREAM location="file:///var/log/myserver/MyServerHTTP.log" cycle="1048576"/>
     </ACCESSLOG>
 
     <WARNINGLOG>
-      <STREAM location="file://logs/MyServerHTTP.err" cycle="1048576"/>
+      <STREAM location="file:///var/log/myserver/MyServerHTTP.err" cycle="1048576"/>
     </WARNINGLOG>
   </VHOST>
 
@@ -26,15 +26,15 @@
     <PORT>21</PORT>
     <PROTOCOL>FTP</PROTOCOL>
 
-    <DOCROOT>web</DOCROOT>
-    <SYSROOT>system</SYSROOT>
+    <DOCROOT>/var/www</DOCROOT>
+    <SYSROOT>/usr/share/myserver/system</SYSROOT>
 
     <ACCESSLOG>
-      <STREAM location="file://logs/MyServerFTP.log" cycle="1048576"/>
+      <STREAM location="file:///var/log/myserver/MyServerFTP.log" cycle="1048576"/>
     </ACCESSLOG>
 
     <WARNINGLOG>
-      <STREAM location="file://logs/MyServerFTP.err" cycle="1048576"/>
+      <STREAM location="file:///var/log/myserver/MyServerFTP.err" cycle="1048576"/>
     </WARNINGLOG>
   </VHOST>
 </VHOSTS>
