@@ -51,7 +51,7 @@ using namespace std;
 
 SocketPair::SocketPair ()
 {
-
+  handles[0] = handles[1] = -1;
 }
 
 /*!

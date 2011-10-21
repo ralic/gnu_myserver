@@ -1516,7 +1516,6 @@ int Server::reboot ()
 
   mustEndServer = false;
 
-
   rebooting = false;
 
   ret = initialize () || postLoad ();

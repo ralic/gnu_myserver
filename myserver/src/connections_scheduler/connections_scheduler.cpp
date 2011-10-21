@@ -317,6 +317,8 @@ void ConnectionsScheduler::registerConnectionID (ConnectionPtr connection)
  */
 void ConnectionsScheduler::restart ()
 {
+  static int i = 0;
+
   readyMutex.init ();
   connectionsMutex.init ();
   eventsMutex.init ();
@@ -327,6 +329,7 @@ void ConnectionsScheduler::restart ()
 
   readySemaphore = new Semaphore (0);
 
+  dispatcherArg.socketPair.close ();
   initialize ();
 }
 
@@ -335,7 +338,11 @@ void ConnectionsScheduler::restart ()
  */
 void ConnectionsScheduler::initialize ()
 {
-  event_init ();
+  static int event_initialized = 0;
+
+  if (! event_initialized)
+    event_init ();
+  event_initialized = 1;
 
   dispatcherArg.terminated = true;
   dispatcherArg.terminate = false;
