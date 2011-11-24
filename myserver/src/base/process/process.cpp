@@ -262,7 +262,7 @@ int Process::exec (StartProcInfo* spi, bool waitEnd)
       if (generateEnvString (envp, size, (char*) spi->envString))
         exit (1);
 
-      if (spi->cwd.length () && chdir (spi->cwd.c_str ()) == -1)
+      if (spi->cwd.length () && gnulib::chdir (spi->cwd.c_str ()) == -1)
         exit (1);
 
       if (spi->stdIn < 0)
