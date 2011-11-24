@@ -47,7 +47,7 @@ static DEFINE_THREAD (dispatcher, p)
       da->mutex->lock ();
       try
         {
-          res = event_loop (EVLOOP_ONCE);
+          res = event_base_loop (da->base, EVLOOP_ONCE);
           da->mutex->unlock ();
         }
       catch (...)
@@ -137,7 +137,7 @@ static void eventLoopHandler (int fd, short event, void *arg)
               da->socketPair.read ((char*) &c, sizeof (ConnectionPtr), &nbr);
               da->socketPair.read ((char*) &tv, sizeof (timeval), &nbr);
 
-              event_once (
+              event_base_once (da->base,
 #ifdef WIN32
               FD_TO_SOCKET (handle),
 #else
@@ -206,7 +206,8 @@ static void listenerHandler (int fd, short event, void *arg)
         }
     }
 
-  event_add (&(s->ev), &tv);
+  if (! s->server->stopServer ())
+    event_add (&(s->ev), &tv);
 }
 
 /*!
@@ -219,7 +220,7 @@ void ConnectionsScheduler::listener (ConnectionsScheduler::ListenerArg *la)
 {
   ConnectionsScheduler::ListenerArg *arg = new ConnectionsScheduler::ListenerArg (la);
 
-    event_set (&(arg->ev),
+  event_assign (&(arg->ev), dispatcherArg.base,
 #ifdef WIN32
               FD_TO_SOCKET (la->serverSocket->getHandle ()),
 #else
@@ -350,6 +351,15 @@ void ConnectionsScheduler::initialize ()
   dispatcherArg.server = server;
   dispatcherArg.scheduler = this;
 
+  dispatcherArg.base = event_base_new ();
+  if (dispatcherArg.base == NULL)
+    {
+      if (server)
+        server->log (MYSERVER_LOG_MSG_ERROR,
+                     _("Error initializing the scheduler"));
+      return;
+    }
+
   dispatchedThreadId = 0;
 
   int err = dispatcherArg.socketPair.create ();
@@ -364,7 +374,7 @@ void ConnectionsScheduler::initialize ()
 
   dispatcherArg.socketPairWrite.setHandle (dispatcherArg.socketPair.getSecondHandle ());
 
-  event_set (&(dispatcherArg.loopEvent),
+  event_assign (&(dispatcherArg.loopEvent), dispatcherArg.base,
 #ifdef WIN32
              FD_TO_SOCKET (dispatcherArg.socketPair.getFirstHandle ()),
 #else
@@ -526,7 +536,7 @@ void ConnectionsScheduler::addWaitingConnectionImpl (ConnectionPtr c, int lock)
         }
     }
   else
-    event_once (
+    event_base_once (dispatcherArg.base,
 #ifdef WIN32
                 FD_TO_SOCKET (handle),
 #else
@@ -635,6 +645,8 @@ void ConnectionsScheduler::release ()
       eventsMutex.unlock ();
       throw;
     }
+
+  event_base_free (dispatcherArg.base);
 }
 
 /*!

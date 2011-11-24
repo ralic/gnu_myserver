@@ -80,6 +80,7 @@ public:
     ConnectionsScheduler* scheduler;
     SocketPair socketPair;
     Socket socketPairWrite;
+    struct event_base *base;
   };
 
   ConnectionsScheduler (Server* server = NULL);
