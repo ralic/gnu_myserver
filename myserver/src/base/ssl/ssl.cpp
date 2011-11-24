@@ -22,6 +22,8 @@
 #include <include/base/file/files_utility.h>
 #include <include/base/sync/mutex.h>
 
+#include <gnutls/gnutls.h>
+
 #include <string.h>
 
 #include <include/base/exceptions/checked.h>
@@ -44,7 +46,6 @@ GCRY_THREAD_OPTION_PTHREAD_IMPL;
 # undef malloc
 # endif
 #endif
-
 
 SslContext::SslContext ()
 {
@@ -71,7 +72,7 @@ int SslContext::initialize ()
   gnutls_certificate_allocate_credentials (&cred);
 
   gnutls_certificate_set_x509_trust_file (cred, certificateFile.c_str (),
-                                          SSL_FILETYPE_PEM);
+                                          GNUTLS_X509_FMT_PEM);
 
   /*TODO*/
   gnutls_certificate_set_x509_crl_file (cred, "", GNUTLS_X509_FMT_PEM);

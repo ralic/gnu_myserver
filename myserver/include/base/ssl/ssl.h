@@ -22,7 +22,7 @@
 
 # include "myserver.h"
 
-# include <gnutls/openssl.h>
+# include <gnutls/gnutls.h>
 # include <string>
 
 using namespace std;

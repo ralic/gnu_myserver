@@ -166,7 +166,7 @@ public:
     gnutls_certificate_set_dh_params (cred, dh_params);
 
     gnutls_certificate_set_x509_trust_file (cred, TESTSERVERPEM,
-                                            SSL_FILETYPE_PEM);
+                                            GNUTLS_X509_FMT_PEM);
 
     gnutls_certificate_set_x509_key_file (cred, TESTSERVERPEM,
                                           TESTSERVERKEY,

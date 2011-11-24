@@ -32,8 +32,6 @@
 # include <string>
 using namespace std;
 
-# include <gnutls/openssl.h>
-
 class SslSocket : public Socket
 {
 public:
