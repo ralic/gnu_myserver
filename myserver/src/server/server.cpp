@@ -1505,16 +1505,16 @@ int Server::reboot ()
 
   log (MYSERVER_LOG_MSG_INFO, _("Rebooting"));
 
-  if (mustEndServer)
+  if (endServer)
     return 0;
 
-  mustEndServer = true;
+  endServer = true;
 
   ret = terminate ();
   if (ret)
     return ret;
 
-  mustEndServer = false;
+  endServer = false;
 
   rebooting = false;
 

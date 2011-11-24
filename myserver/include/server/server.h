@@ -87,7 +87,7 @@ public:
     return &processServerManager;
   }
   PluginsManager* getPluginsManager (){return &pluginsManager;}
-  bool stopServer (){return mustEndServer;}
+  bool stopServer (){return endServer;}
   HomeDir* getHomeDir ();
   static void createInstance ();
 
@@ -184,12 +184,6 @@ private:
   MainConfiguration *configurationFileManager;
   MainConfiguration* (*genMainConf) (Server *server, const char *arg);
   int loadVHostConf ();
-
-  /*!
-    When the flag mustEndServer is 1 all the threads are
-    stopped and the application stop its execution.
-  */
-  int mustEndServer;
 
   Mutex connectionsPoolLock;
   Slab<Connection> connectionsPool;
