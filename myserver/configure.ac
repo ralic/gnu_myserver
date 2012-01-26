@@ -3,7 +3,7 @@ dnl
 dnl GNU MyServer
 dnl
 dnl Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-dnl 2011 Free Software Foundation, Inc.
+dnl 2011, 2012 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -202,7 +202,16 @@ if test x$have_xml2 != xyes; then
 ])
 
 else
-	CPPFLAGS="$CPPFLAGS $XML_CPPFLAGS"
+       CPPFLAGS="$CPPFLAGS $XML_CPPFLAGS"
+fi
+
+dnl Looking for libguile
+AC_CHECK_LIB(guile, scm_done_malloc)
+if test x$ac_cv_lib_guile_scm_done_malloc != xyes; then
+   AC_MSG_ERROR([
+   *** This system appears to have no libguile
+   *** libguile is required
+   ])
 fi
 
 AC_CHECK_LIB(gpg-error, gpg_err_init)
