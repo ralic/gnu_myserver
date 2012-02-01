@@ -340,7 +340,7 @@ int Server::postLoad ()
  */
 int Server::loadVHostConf ()
 {
-  string vhostHandlerStr (getData ("server.vhost_handler", "xml"));
+  string vhostHandlerStr (getData ("server.vhost_handler", "guile"));
   vhostHandler = vhostManager.buildHandler (vhostHandlerStr, &listenThreads,
                                             logManager);
 

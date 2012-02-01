@@ -342,7 +342,7 @@ int loadConfFilesLocation (string &mainConfigurationFile,
   if (loadConfFileLocation (mimeConfigurationFile, "MIMEtypes.xml", dir))
     return -1;
 
-  if (loadConfFileLocation (vhostConfigurationFile, "virtualhosts.xml", dir))
+  if (loadConfFileLocation (vhostConfigurationFile, "virtualhosts.sch", dir))
     return -1;
 
   if (loadExternalPath (externalPath))
