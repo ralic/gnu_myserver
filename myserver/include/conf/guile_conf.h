@@ -25,13 +25,11 @@
 #include <include/conf/vhost/xml_vhost_handler.h>
 #include <include/server/server.h>
 
-#define CONF_FILE_NAME "myserver.sch"
-
 /*! Define the interface to read from the main configuration file.  */
 class GuileConfiguration : public MainConfiguration
 {
 public:
-  GuileConfiguration ();
+  GuileConfiguration (const char *filename);
   virtual const char *getValue (const char* field);
   virtual void readData (list<NodeTree<string>*> *hashedDataTrees,
                          HashMap<string, NodeTree<string>*> *hashedData);

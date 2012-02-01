@@ -1,7 +1,7 @@
 /*
   MyServer
   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-  2011 Free Software Foundation, Inc.
+  2011, 2012 Free Software Foundation, Inc.
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 3 of the License, or
@@ -38,6 +38,8 @@
 
 #include <include/conf/main/xml_main_configuration.h>
 #include <include/conf/security/xml_validator.h>
+
+#include <include/conf/guile_conf.h>
 
 #include <cstdarg>
 
@@ -822,16 +824,21 @@ int Server::initialize ()
     }
   else
     {
-      XmlMainConfiguration *xmlMainConf = new XmlMainConfiguration ();
-      if (xmlMainConf->open (mainConfigurationFile.c_str ()))
+      GuileConfiguration *guileMainConf;
+      try
+        {
+          guileMainConf = new GuileConfiguration (mainConfigurationFile.c_str ());
+        }
+      catch (...)
         {
           log (MYSERVER_LOG_MSG_ERROR,
                _("Error while loading the %s configuration file"),
                mainConfigurationFile.c_str ());
-          delete xmlMainConf;
+          delete guileMainConf;
           return -1;
         }
-      configurationFileManager = xmlMainConf;
+
+      configurationFileManager = guileMainConf;
     }
 
   configurationFileManager->readData (&hashedDataTrees, &hashedData);

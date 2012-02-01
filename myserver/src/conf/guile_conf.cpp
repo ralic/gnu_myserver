@@ -28,17 +28,12 @@
 
 #define CONF_FILE_NAME "myserver.sch"
 
-static MainConfiguration *genGuileMainConf (Server *server, const char *arg)
-{
-  return new GuileConfiguration ();
-}
-
 static VhostManagerHandler* guile_vhost_builder (ListenThreads* lt, LogManager* lm);
 
 
 extern MainConfiguration* (*genMainConf) (Server *server, const char *arg);
 
-GuileConfiguration::GuileConfiguration ()
+GuileConfiguration::GuileConfiguration (const char *filename)
 {
   serverInstance = Server::getInstance ();
 
@@ -54,10 +49,11 @@ GuileConfiguration::GuileConfiguration ()
                                _("GuileConf: cannot find file %s"), CONF_FILE_NAME);
         }
 
-      genMainConf = &genGuileMainConf;
+      VhostManager *vhostManager = serverInstance->getVhosts ();
+      vhostManager->registerBuilder ("guile", guile_vhost_builder);
+
       initialized = 1;
     }
-
 }
 
 const char *
@@ -109,18 +105,8 @@ GuileVhostManagerHandler::load (const char *resource)
       addVHost (vh);
     }
 
-
-  static int initialized = 0;
-  if (! initialized)
-  {
-    VhostManager *vhostManager = serverInstance->getVhosts ();
-    vhostManager->registerBuilder ("guile", guile_vhost_builder);
-    initialized = 1;
-  }
-
   return 0;
 }
-
 
 static NodeTree<string>*
 traverse (SCM node, HashMap<string, NodeTree<string>*> *hashedData)

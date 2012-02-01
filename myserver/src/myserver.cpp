@@ -1,7 +1,7 @@
 /*
   MyServer
   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-  2011 Free Software Foundation, Inc.
+  2011, 2012 Free Software Foundation, Inc.
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 3 of the License, or
@@ -336,7 +336,7 @@ int loadConfFilesLocation (string &mainConfigurationFile,
                            string &externalPath,
                            const char *dir)
 {
-  if (loadConfFileLocation (mainConfigurationFile, "myserver.xml", dir))
+  if (loadConfFileLocation (mainConfigurationFile, "myserver.sch", dir))
     return -1;
 
   if (loadConfFileLocation (mimeConfigurationFile, "MIMEtypes.xml", dir))
@@ -368,19 +368,6 @@ static void updateWorkingDirectory (const char *firstArgument)
       setcwd (newdir.c_str ());
     }
 }
-
-static MainConfiguration *_genMainConf (Server *server, const char *arg)
-{
-  XmlMainConfiguration *conf = new XmlMainConfiguration ();
-  if (conf->open (arg))
-    {
-      delete conf;
-      return NULL;
-    }
-  return conf;
-}
-
-MainConfiguration* (*genMainConf) (Server *server, const char *arg) = &_genMainConf;
 
 const char *program_name = NULL;
 
@@ -516,7 +503,7 @@ int main (int argn, char **argv)
             return 1;
 #endif
         case MYSERVER_RUNAS_CONSOLE:
-          consoleService (mainConf, mimeConf, vhostConf, externPath, genMainConf);
+          consoleService (mainConf, mimeConf, vhostConf, externPath, NULL);
         }
     }
   catch (...)
