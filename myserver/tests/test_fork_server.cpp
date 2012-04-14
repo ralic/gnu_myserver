@@ -1,6 +1,6 @@
 /*
   MyServer
-  Copyright (C) 2008, 2009, 2010, 2011 Free Software Foundation, Inc.
+  Copyright (C) 2008, 2009, 2010, 2011, 2012 Free Software Foundation, Inc.
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 3 of the License, or
@@ -89,6 +89,8 @@ public:
         spi.stdError = -1;
         spi.stdOut =  pipe.getWriteHandle ();
 
+        CPPUNIT_ASSERT_EQUAL (ret, 0);
+
         if (!FilesUtility::nodeExists ("/bin/echo"))
           return;
 
@@ -99,8 +101,6 @@ public:
 
         ret = fs->executeProcess (&spi, ForkServer::FLAG_USE_OUT, &pid, &port);
         pipe.closeWrite ();
-
-        CPPUNIT_ASSERT_EQUAL (ret, 0);
 
         ret = pipe.read (buffer, 32, &nbr);
 
